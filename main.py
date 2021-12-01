@@ -1,27 +1,23 @@
 from levers import Levers
-from doors import Doors
+from room import Room
+from door import Door
 
 if __name__ == "__main__":
-    n = int(input("Введите число рычагов "))
-    m = int(input("Введите число дверей "))
-    levers = Levers()
-    doors = Doors()
-    for i in range(m):
-        pos = int(input(f"Введите комбинацию позиций рычагов для открытия двери №{i+1} "))
-        doors.add_door(pos)
-    for i in range(n):
-        pos = int(input(f"Введите позицию для рычага №{i+1} "))
-        levers.add_lever(pos)
-    if levers.levers not in doors.doors:
-        print("Все двери закрыты")
-    else:
-        i = 1
-        for door in doors.doors:
-            if door == levers.levers:
-                print("Открыта дверь №", i)
-            i += 1
-
-
-
+    room = Room()
+    room.add_door(Door(1, [1, 3, 4]))
+    room.add_door(Door(2, [3, 2, 1]))
+    room.add_door(Door(3, [2, 1, 3]))
+    room.print_room()
+    position = Levers([3, 2, 1])
+    room.try_to_open(position)
+    room.print_room()
+    position.change_pos([1, 3, 4])
+    room.try_to_open(position)
+    room.print_room()
+    position.change_pos([2, 3, 4, 1])
+    position.change_pos([2, 3, 11])
+    position.change_pos([2, 2, 2])
+    room.try_to_open(position)
+    room.print_room()
 
 
