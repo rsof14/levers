@@ -8,6 +8,7 @@ class Room:
         self.opened_doors = []
 
     def add_door(self, door: Door):
+        door.num = len(self.doors) + 1
         self.doors.append(door)
 
     def print_room(self):
@@ -17,7 +18,7 @@ class Room:
     def try_to_open(self, position: Levers):
         flag = False
         for door in self.doors:
-            if door.pos == position.pos:
+            if door.pos == position.pos and door.opened is False:
                 door.opened = True
                 self.opened_doors.append(door)
                 flag = True
